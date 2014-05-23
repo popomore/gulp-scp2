@@ -17,14 +17,25 @@ module.exports = function(options) {
   var client = createClient(options);
 
   return through.obj(function transform(file, enc, callback) {
-    if (file.isStream()) return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
+    if (file.isStream()) {
+      return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
+    }
 
     var path = join(options.dest, file.relative);
-    client.mkdir(dirname(path), function() {
+    client.mkdir(dirname(path), function(err) {
+      if (err) {
+        return callback(new PluginError('gulp-scp2', err));
+      }
+
       client.write({
         destination: path,
         content: file.contents
-      }, callback);
+      }, function(err) {
+        if (err) {
+          err = new PluginError('gulp-scp2', err);
+        }
+        callback(err);
+      });
     });
   }, function flush(callback) {
     client.close();
