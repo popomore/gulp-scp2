@@ -1,0 +1,29 @@
+{
+  "name": "gulp-scp2",
+  "version": "0.1.0",
+  "description": "The best module ever.",
+  "main": "index",
+  "dependencies": {
+    "debug": "~0.8.1",
+    "gulp": "~3.6.2",
+    "gulp-util": "~2.2.14",
+    "scp2": "~0.1.4",
+    "through2": "~0.4.2"
+  },
+  "devDependencies": {
+    "coveralls": "~2.10.0",
+    "istanbul": "~0.2.7",
+    "mocha": "~1.18.2",
+    "should": "~3.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/popomore/gulp-scp2"
+  },
+  "homepage": "https://github.com/popomore/gulp-scp2",
+  "author": "popomore <sakura9515@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  }
+}
