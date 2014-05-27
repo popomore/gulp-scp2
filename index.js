@@ -16,6 +16,10 @@ module.exports = function(options) {
 
   var client = createClient(options);
 
+  if (isFunction(options.watch)) {
+    options.watch(client);
+  }
+
   return through.obj(function transform(file, enc, callback) {
     if (file.isStream()) {
       return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
@@ -61,4 +65,8 @@ function createClient(options) {
     debug('error %s', err);
   });
   return client;
+}
+
+function isFunction(fun) {
+  return Object.prototype.toString.call(fun) === '[object Function]';
 }

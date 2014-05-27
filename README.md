@@ -66,6 +66,11 @@ Default value: `/home/username`
 
 Remote server directory
 
+### options.watch
+Type: `Function`
+
+You can get the `client` instance, and watch events.
+
 ### More Options
 
 - host

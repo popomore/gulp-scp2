@@ -9,7 +9,12 @@ gulp.task('default', function() {
     host: 'localhost',
     username: 'username',
     password: 'password',
-    dest: '/home/username/'
+    dest: '/home/username/',
+    watch: function(client) {
+      client.on('write', function(o) {
+        console.log('write %s', o.destination);
+      });
+    }
   }))
   .on('error', function(err) {
     console.log(err);
