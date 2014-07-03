@@ -2,6 +2,10 @@
 
 ---
 
+## 0.1.2
+
+keywords
+
 ## 0.1.1
 
 Add watch option

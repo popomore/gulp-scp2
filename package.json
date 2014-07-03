@@ -3,6 +3,12 @@
   "version": "0.1.1",
   "description": "Copy file to remote server, using scp2 that is a pure javascript implement.",
   "main": "index",
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "scp",
+    "deploy"
+  ],
   "dependencies": {
     "debug": "~0.8.1",
     "gulp": "~3.6.2",
