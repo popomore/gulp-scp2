@@ -10,11 +10,11 @@
     "deploy"
   ],
   "dependencies": {
-    "debug": "~0.8.1",
-    "gulp": "~3.6.2",
-    "gulp-util": "~2.2.14",
+    "debug": "1.x",
+    "gulp": "~3.8.8",
+    "gulp-util": "~3.0.1",
     "scp2": "~0.1.4",
-    "through2": "~0.4.2"
+    "through2": "~0.6.2"
   },
   "devDependencies": {
     "coveralls": "~2.10.0",
