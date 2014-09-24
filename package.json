@@ -1,6 +1,6 @@
 {
   "name": "gulp-scp2",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Copy file to remote server, using scp2 that is a pure javascript implement.",
   "main": "index",
   "keywords": [
