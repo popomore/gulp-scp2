@@ -27,9 +27,6 @@ module.exports = function(options) {
 
             var filePath = pathLib.relative(process.cwd(), file.path);
 
-            console.log(filePath);
-
-
             var path = join(options.dest, filePath);
             client.mkdir(dirname(filePath), function(err) {
                 if (err) {
@@ -46,10 +43,8 @@ module.exports = function(options) {
                         }
                         callback(err);
                     });
-                }
-                else
-                {
-                  callback();
+                } else {
+                    callback();
                 }
             });
         },
