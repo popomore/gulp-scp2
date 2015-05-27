@@ -1,8 +1,8 @@
 'use strict';
 
-var path = require('path');
-var join = path.join;
-var dirname = path.dirname;
+var pathLib = require('path');
+var join = pathLib.join;
+var dirname = pathLib.dirname;
 var Client = require('scp2').Client;
 var through = require('through2');
 var debug = require('debug')('gulp-scp2');
@@ -20,31 +20,38 @@ module.exports = function(options) {
     options.watch(client);
   }
 
-  return through.obj(function transform(file, enc, callback) {
-    if (file.isStream()) {
-      return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
-    }
-
-    var path = join(options.dest, file.relative);
-    client.mkdir(dirname(path), function(err) {
-      if (err) {
-        return callback(new PluginError('gulp-scp2', err));
+  return through.obj(function(file, enc, callback) {
+      if (file.isStream()) {
+        return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
       }
 
-      client.write({
-        destination: path,
-        content: file.contents
-      }, function(err) {
+      var filePath = pathLib.relative(process.cwd(), file.path);
+
+      var path = join(options.dest, filePath);
+      client.mkdir(dirname(filePath), function(err) {
         if (err) {
-          err = new PluginError('gulp-scp2', err);
+          return callback(new PluginError('gulp-scp2', err));
         }
-        callback(err);
+
+        if (!file.isNull()) {
+          client.write({
+            destination: path,
+            content: file.contents
+          }, function(err) {
+            if (err) {
+              err = new PluginError('gulp-scp2', err);
+            }
+            callback(err);
+          });
+        } else {
+          callback();
+        }
       });
+    },
+    function flush(callback) {
+      client.close();
+      callback();
     });
-  }, function flush(callback) {
-    client.close();
-    callback();
-  });
 };
 
 function createClient(options) {
