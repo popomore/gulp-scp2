@@ -17,7 +17,7 @@ var gulp = require('gulp');
 var scp = require('gulp-scp2');
 
 gulp.task('default', function() {
-  return gulp.src('*.js')
+  return gulp.src('**/*.js')
   .pipe(scp({
     host: 'localhost',
     username: 'username',
@@ -30,10 +30,9 @@ gulp.task('default', function() {
 });
 ```
 
-see example
+More see [example](https://github.com/popomore/gulp-scp2/blob/master/examples/gulpfile.js)
 
 ## Options
-
 
 ### options.host
 Type: `String`
@@ -88,4 +87,4 @@ Read more: https://github.com/mscdex/ssh2#connection-methods
 
 ## LISENCE
 
-Copyright (c) 2014 popomore. Licensed under the MIT license.
+Copyright (c) 2015 popomore. Licensed under the MIT license.
