@@ -1,6 +1,9 @@
-# History
+## 0.2.0 / 2015-06-15
 
----
+- update readme
+- fix windows path #3
+- ignore directory fix #1
+- remove gulp-util
 
 ## 0.1.3
 
