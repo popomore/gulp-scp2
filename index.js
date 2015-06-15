@@ -29,7 +29,7 @@ module.exports = function(options) {
       return callback();
     }
 
-    var path = join(options.dest, file.relative);
+    var path = fixWinPath(join(options.dest, file.relative));
     client.mkdir(dirname(path), function(err) {
       if (err) {
         return callback(err);
@@ -68,4 +68,8 @@ function createClient(options) {
 
 function isFunction(fun) {
   return Object.prototype.toString.call(fun) === '[object Function]';
+}
+
+function fixWinPath(str) {
+  return str.replace(/\\/g, '/');
 }
