@@ -10,13 +10,12 @@
     "deploy"
   ],
   "dependencies": {
-    "debug": "1.x",
-    "gulp": "~3.8.8",
-    "gulp-util": "~3.0.1",
-    "scp2": "~0.1.4",
-    "through2": "~0.6.2"
+    "debug": "~2.2.0",
+    "scp2": "~0.2.2",
+    "through2": "~2.0.0"
   },
   "devDependencies": {
+    "gulp": "~3.9.0",
     "coveralls": "~2.10.0",
     "istanbul": "~0.2.7",
     "mocha": "~1.18.2",
@@ -24,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/popomore/gulp-scp2"
+    "url": "git@github.com:popomore/gulp-scp2.git"
   },
   "homepage": "https://github.com/popomore/gulp-scp2",
   "author": "popomore <sakura9515@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "make test"
+    "test": "mocha -R spec -t 20000"
   }
 }

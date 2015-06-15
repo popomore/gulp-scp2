@@ -6,7 +6,6 @@ var dirname = path.dirname;
 var Client = require('scp2').Client;
 var through = require('through2');
 var debug = require('debug')('gulp-scp2');
-var PluginError = require('gulp-util').PluginError;
 
 module.exports = function(options) {
   options || (options = {});
@@ -22,24 +21,19 @@ module.exports = function(options) {
 
   return through.obj(function transform(file, enc, callback) {
     if (file.isStream()) {
-      return callback(new PluginError('gulp-scp2', 'Streaming not supported.'));
+      return callback(new Error('Streaming not supported.'));
     }
 
     var path = join(options.dest, file.relative);
     client.mkdir(dirname(path), function(err) {
       if (err) {
-        return callback(new PluginError('gulp-scp2', err));
+        return callback(err);
       }
 
       client.write({
         destination: path,
         content: file.contents
-      }, function(err) {
-        if (err) {
-          err = new PluginError('gulp-scp2', err);
-        }
-        callback(err);
-      });
+      }, callback);
     });
   }, function flush(callback) {
     client.close();
