@@ -24,6 +24,11 @@ module.exports = function(options) {
       return callback(new Error('Streaming not supported.'));
     }
 
+    if (file.stat.isDirectory()) {
+      debug('ignore directory %s', file.path);
+      return callback();
+    }
+
     var path = join(options.dest, file.relative);
     client.mkdir(dirname(path), function(err) {
       if (err) {
