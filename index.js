@@ -24,7 +24,7 @@ module.exports = function(options) {
       return callback(new Error('Streaming not supported.'));
     }
 
-    if (file.stat.isDirectory()) {
+    if (!file.isBuffer && file.stat.isDirectory()) {
       debug('ignore directory %s', file.path);
       return callback();
     }
