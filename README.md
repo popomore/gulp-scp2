@@ -7,7 +7,7 @@ Copy file to remote server, using scp2 that is a pure javascript implement.
 ## Install
 
 ```
-$ npm install gulp-scp2 -g
+$ npm install gulp-scp2 or yarn add gulp-scp2
 ```
 
 ## Usage
@@ -22,7 +22,8 @@ gulp.task('default', function() {
     host: 'localhost',
     username: 'username',
     password: 'password',
-    dest: '/home/username/'
+    dest: '/home/username/',
+    cb:callback
   }))
   .on('error', function(err) {
     console.log(err);
@@ -69,6 +70,11 @@ Remote server directory
 Type: `Function`
 
 You can get the `client` instance, and watch events.
+
+### options.cb
+Type: `Function`
+
+After the callback
 
 ### More Options
 
