@@ -7,12 +7,11 @@ var Client = require('scp2').Client;
 var through = require('through2');
 var debug = require('debug')('gulp-scp2');
 
-module.exports = function(options) {
+module.exports = function (options) {
   options || (options = {});
   options.host = options.host || 'localhost';
   options.username = options.username || 'admin';
   options.dest = options.dest || '/home/' + options.username;
-
   var client = createClient(options);
 
   if (isFunction(options.watch)) {
@@ -28,39 +27,46 @@ module.exports = function(options) {
       debug('ignore directory %s', file.path);
       return callback();
     }
+    var path = fixWinPath(join(options.dest, (options.path ? options.path : file.relative)));
 
-    var path = fixWinPath(join(options.dest, file.relative));
-    client.mkdir(dirname(path), function(err) {
+    client.mkdir(dirname(path), function (err) {
       if (err) {
         return callback(err);
       }
-
       client.write({
         destination: path,
         content: file.contents
-      }, callback);
+      }, writeCallback(callback, path));
     });
   }, function flush(callback) {
     client.close();
+    options.cb ? options.cb() : null;
     callback();
   });
 };
 
+function writeCallback(callback, path) {
+  return function () {
+    console.log(path, 'Done');
+    callback(...arguments);
+  }
+}
+
 function createClient(options) {
   var client = new Client(options);
-  client.on('connect', function() {
+  client.on('connect', function () {
     debug('ssh connect %s', options.host);
   });
-  client.on('close', function() {
+  client.on('close', function () {
     debug('ssh connect %s', options.host);
   });
-  client.on('mkdir', function(dir) {
+  client.on('mkdir', function (dir) {
     debug('mkdir %s', dir);
   });
-  client.on('write', function(o) {
+  client.on('write', function (o) {
     debug('write %s', o.destination);
   });
-  client.on('error', function(err) {
+  client.on('error', function (err) {
     debug('error %s', err);
   });
   return client;
